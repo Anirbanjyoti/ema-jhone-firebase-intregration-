@@ -1,21 +1,23 @@
-// import logo from './logo.svg';
+
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import Header from './Components/Header/Header';
-import Home from './Components/Home/Home';
-import Login from './Components/Login/Login';
-import Registration from './Components/Registration/Registration';
+import About from './components/About/About';
+import Header from './components/Header/Header';
+import Inventory from './components/Inventory/Inventory';
+import Orders from './components/Orders/Orders';
+import Shop from './components/Shop/Shop';
 
 function App() {
   return (
     <div>
-    <Header></Header>
-    <Routes>
-      <Route path='/' element={<Home></Home>}></Route>
-      <Route path='/home' element={<Home></Home>}></Route>
-      <Route path='/registration' element={<Registration></Registration>}></Route>
-      <Route path='/login' element={<Login></Login>}></Route>
-    </Routes>
+      <Header></Header>
+      <Routes>
+        <Route path='/' element={<Shop></Shop>}></Route>
+        <Route path='/shop' element={<Shop></Shop>}></Route>
+        <Route path='/orders' element={<Orders></Orders>}></Route>
+        <Route path='/inventory' element={<Inventory></Inventory>}></Route>
+        <Route path='/about' element={<About></About>}></Route>
+      </Routes>
     </div>
   );
 }
