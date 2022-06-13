@@ -1,34 +1,87 @@
 import React from "react";
 import { Button, Form } from "react-bootstrap";
-import './Registration.css';
+import '../../Components/./Login/Login.css';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init'
 
 const Registration = () => {
+  const [email, setEmail] =useState(' ');
+  const [password, setPassword] =useState(' ');
+  const [confirmPassword, setConfirmPassword] =useState(' ');
+  const [error, setError] =useState(' ');
+  // After create user navigate to shop or home page
+  const navigate = useNavigate();
+
+  // React Firebase Hooks
+  const [createUserWithEmailAndPassword, user ] = useCreateUserWithEmailAndPassword(auth);
+
+  const handleEmailBlur = event =>{
+    setEmail(event.target.value);
+  }
+  const handlePasswordBlur = event =>{
+    setPassword(event.target.value);
+  }
+  const handleConfirmPasswordBlur = event =>{
+    setConfirmPassword(event.target.value);
+  }
+  // After create user go to shop page
+  if(user){
+    navigate('/shop')
+  }
+  // Create User
+  const handleCreateUser = event =>{
+    event.preventDefault();
+    createUserWithEmailAndPassword(email, password)
+    if(password !== confirmPassword){
+      setError('Your Password and Confirm Password does not match !');
+      return;
+    }
+    if(password.length < 6){
+      setError('Password must be six character or more !');
+      return;
+    }
+  }
+
+  
   return (
     <div className="form-container">
-      <Form>
-        <Form.Group className="mb-3" controlId="formBasicUser">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="text" placeholder="Enter Your Name" />
-        </Form.Group>
-
+      <Form onSubmit={handleCreateUser}>
+      <h2 style={{textAlign:'center'}}>Sign Up</h2>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" />
-          <Form.Text className="text-muted">
+          <Form.Label>Email</Form.Label>
+          <br />
+          <Form.Control onBlur={handleEmailBlur} className="input-field"  type="email" placeholder="Enter email" />
+          {/* <Form.Text className="text-muted">
             We'll never share your email with anyone else.
-          </Form.Text>
+          </Form.Text> */}
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" />
+          <br />
+          <Form.Control onBlur={handlePasswordBlur} className="input-field" type="password" placeholder="Password" />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+
+        <Form.Group className="mb-3" controlId="formBasicConfPassword">
+          <Form.Label>Confirm Password</Form.Label>
+          <br />
+          <Form.Control onBlur={handleConfirmPasswordBlur} className="input-field" type="password" placeholder="Confirm Password" />
+        </Form.Group>
+        {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
           <Form.Check type="checkbox" label="Check me out" />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Registration
+        </Form.Group> */}
+        <p style={{color:'red'}}>{error}</p>
+        <Button  className="log" variant="primary" type="submit">
+          Sign Up
         </Button>
+        <p className="ac-message"><small>Already have an account? <span className="ac-create"><Link to='/Login'>Log in</Link></span></small></p>
+        <p className="or">
+        _________________________ or __________________________
+        </p>
+
+        <Button  className="g-btn" variant="primary" type="submit">Continue With Google</Button>
       </Form>
     </div>
   );

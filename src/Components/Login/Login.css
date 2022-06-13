@@ -1,7 +1,37 @@
 .form-container{
-    width: 900px;
+    width: 550px;
     margin: auto;
     margin-top: 50px;
     border: 1px solid gold;
-    padding: 20px;
+    padding: 30px;
+}
+.log {
+    width: 100%;
+    padding: 20px 100px;
+    background: antiquewhite;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.g-btn {
+    width: 100%;
+    padding: 20px 100px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.or{
+    text-align: center;
+}
+.input-field {
+    height: 50px;
+    width: 100%;
+    margin-bottom: 30px;
+}
+.ac-message{
+    text-align: center;
+}
+.ac-create {
+    color: chocolate;
+    font-weight: bold;
 }
