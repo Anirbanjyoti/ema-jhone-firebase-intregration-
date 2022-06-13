@@ -7,6 +7,7 @@ import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init'
 
 const Registration = () => {
+  const [userName, setUserName] =useState(' ');
   const [email, setEmail] =useState(' ');
   const [password, setPassword] =useState(' ');
   const [confirmPassword, setConfirmPassword] =useState(' ');
@@ -17,6 +18,9 @@ const Registration = () => {
   // React Firebase Hooks
   const [createUserWithEmailAndPassword, user ] = useCreateUserWithEmailAndPassword(auth);
 
+  const handleUserNameBlur = event =>{
+    setUserName(event.target.value);  
+  }
   const handleEmailBlur = event =>{
     setEmail(event.target.value);
   }
@@ -49,13 +53,15 @@ const Registration = () => {
     <div className="form-container">
       <Form onSubmit={handleCreateUser}>
       <h2 style={{textAlign:'center'}}>Sign Up</h2>
+        <Form.Group className="mb-3" controlId="formBasicUserName">
+          <Form.Label>User Name</Form.Label>
+          <br />
+          <Form.Control onBlur={handleUserNameBlur} className="input-field"  type="text" placeholder="Enter User Name" />
+        </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email</Form.Label>
           <br />
           <Form.Control onBlur={handleEmailBlur} className="input-field"  type="email" placeholder="Enter email" />
-          {/* <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text> */}
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">

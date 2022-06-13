@@ -20,7 +20,6 @@ const Header = () => {
                 <Link to="/inventory">Inventory</Link>
                 <Link to="/about">About</Link>
                 <Link to="/registration">Registration</Link>
-                {/* <p>{user.name}</p> */}
                 {
                     user ?
                     <button style={{cursor:'pointer'}} onClick={handleUserSignOut}>Sign Out</button>
