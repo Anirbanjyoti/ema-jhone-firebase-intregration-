@@ -1,16 +1,21 @@
 import { signOut } from 'firebase/auth';
-import React from 'react';
+import { useContext } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import auth from '../../firebase.init';
 import logo from '../../images/Logo.svg';
+import { nameContext } from '../Registration/Registration';
 import './Header.css';
 
-const Header = () => {
+const Header = ({userName}) => {
+    const nnn = useContext(nameContext);
+    console.log(nnn);
+    
     const [user] = useAuthState(auth);
     const handleUserSignOut =() =>{
         signOut(auth);
     }
+    
     return (
         <nav className='header'>
             <img src={logo} alt="" />
@@ -20,6 +25,7 @@ const Header = () => {
                 <Link to="/inventory">Inventory</Link>
                 <Link to="/about">About</Link>
                 <Link to="/registration">Registration</Link>
+                {userName}
                 {
                     user ?
                     <button style={{cursor:'pointer'}} onClick={handleUserSignOut}>Sign Out</button>
